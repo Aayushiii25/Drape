@@ -260,7 +260,7 @@ Register the HTTPS ngrok forwarding URL (`https://<hash>.ngrok-free.app/webhook`
 
 ---
 
-## Screenshots
+##  Mock Screenshots
 
 ### Onboarding & Occasion Selection
 ![Onboarding](assets/demo/chat-1.png)
