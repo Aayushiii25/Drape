@@ -34,18 +34,18 @@ Currently, user sessions are kept in memory, and the e-commerce search collector
 
 ```mermaid
 graph TD
-    User[WhatsApp User] <-->|HTTP| Meta[Meta WhatsApp Cloud API]
-    Meta <-->|HTTP| Webhook[webhook.py - APIRouter]
-    Webhook -->|Session Control| ConvMgr[ConversationManager]
-    ConvMgr -->|State Storage| Memory[(In-Memory Session Dict)]
-    ConvMgr -->|Heuristics| Classifier[body_shape.py - classify_body_shape]
-    ConvMgr -->|Styling Engine| Stylist[stylist.py - StylistAgent]
-    Webhook -.-->|Background Async Task| WAService[whatsapp.py - WhatsAppService]
+    User["WhatsApp User"] <-->|HTTP| Meta["Meta WhatsApp Cloud API"]
+    Meta <-->|HTTP| Webhook["webhook.py - APIRouter"]
+    Webhook -->|Session Control| ConvMgr["ConversationManager"]
+    ConvMgr -->|State Storage| Memory[("In-Memory Session Dict")]
+    ConvMgr -->|Heuristics| Classifier["body_shape.py - classify_body_shape"]
+    ConvMgr -->|Styling Engine| Stylist["stylist.py - StylistAgent"]
+    Webhook -.->|Background Async Task| WAService["whatsapp.py - WhatsAppService"]
     WAService -->|HTTP POST| Meta
 
     subgraph Inactive Modules
-        ProductService[product_service.py]
-        SavanaCollector[savana.py - SavanaCollector]
+        ProductService["product_service.py"]
+        SavanaCollector["savana.py - SavanaCollector"]
         ProductService --> SavanaCollector
     end
 ```
@@ -57,10 +57,12 @@ graph TD
 ```mermaid
 sequenceDiagram
     autonumber
-    actor User as User
+    actor User
     participant Meta as Meta WhatsApp Cloud API
     participant App as webhook.py
     participant Manager as ConversationManager
+    participant Classifier as body_shape.py
+    participant Stylist as stylist.py
     participant Service as WhatsAppService
 
     User->>Meta: Send text message
